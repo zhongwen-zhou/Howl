@@ -1,0 +1,781 @@
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.3ms)[0m  [1mSELECT `schema_migrations`.`version` FROM `schema_migrations` [0m
+Migrating to CreateUsers (20130124133252)
+  [1m[35m (16.5ms)[0m  CREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `email` varchar(255) NOT NULL, `nick_name` varchar(255) NOT NULL, `password` varchar(255) NOT NULL, `brief_introduction` text, `status` int(11) DEFAULT 0 NOT NULL, `access_token` varchar(255), `token_updated_at` datetime, `following_count` int(11) DEFAULT 0, `follower_count` int(11) DEFAULT 0, `group_count` int(11) DEFAULT 0, `sign_in_count` int(11) DEFAULT 0, `current_sign_in_at` datetime, `current_sign_in_ip` varchar(255), `last_sign_in_at` datetime, `last_sign_in_ip` varchar(255), `permission` int(11) DEFAULT 1 NOT NULL, `is_remember` tinyint(1) DEFAULT 0, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130124133252')[0m
+Migrating to CreateGroups (20130124133630)
+  [1m[35m (1.5ms)[0m  CREATE TABLE `groups` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255) NOT NULL, `description` text, `level` int(11) DEFAULT 1, `status` int(11) DEFAULT 0 NOT NULL, `following_count` int(11) DEFAULT 0, `member_count` int(11) DEFAULT 0, `user_id` int(11) NOT NULL, `visable_status` int(11) DEFAULT 0 NOT NULL, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130124133630')[0m
+Migrating to CreateCategories (20130124133824)
+  [1m[35m (1.9ms)[0m  CREATE TABLE `categories` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255) NOT NULL, `description` text, `level` int(11) DEFAULT 0, `status` int(11) DEFAULT 0 NOT NULL, `postion` int(11) DEFAULT 0, `max_postion` int(11), `parent_id` int(11), `user_id` int(11) NOT NULL, `io_type` int(11) DEFAULT 0 NOT NULL, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130124133824')[0m
+Migrating to CreateGroupUsers (20130124134038)
+  [1m[35m (1.8ms)[0m  CREATE TABLE `group_users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `group_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `invitees_id` int(11), `is_follow` tinyint(1) DEFAULT 0, `is_admin` tinyint(1) DEFAULT 0, `is_creator` tinyint(1) DEFAULT 0, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130124134038')[0m
+Migrating to CreateAccounts (20130124134608)
+  [1m[35m (19.5ms)[0m  CREATE TABLE `accounts` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `sum` float NOT NULL, `io_type` int(11), `owner_type` varchar(255), `owner_id` int(11), `genre_type` varchar(255), `genre_id` int(11), `remark` text, `visable_status` int(11) DEFAULT 0 NOT NULL, `user_id` int(11) NOT NULL, `paid_user_id` int(11) NOT NULL, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130124134608')[0m
+Migrating to CreateActivities (20130126132455)
+  [1m[35m (9.1ms)[0m  CREATE TABLE `activities` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `subject` varchar(255) NOT NULL, `description` text, `address` varchar(255), `status` int(11) DEFAULT 0 NOT NULL, `start_date` datetime, `end_date` datetime, `owner_id` int(11), `owner_type` varchar(255), `visable_status` int(11) DEFAULT 0 NOT NULL, `user_id` int(11) NOT NULL, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130126132455')[0m
+Migrating to CreateBudgets (20130128022359)
+  [1m[35m (1.8ms)[0m  CREATE TABLE `budgets` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255) NOT NULL, `description` text, `start_date` datetime, `end_date` datetime, `visable_status` int(11) DEFAULT 0 NOT NULL, `status` int(11) DEFAULT 0 NOT NULL, `total_sum` float, `balance_sum` float, `genre_id` int(11), `genre_type` varchar(255), `owner_id` int(11), `owner_type` varchar(255), `user_id` int(11) NOT NULL, `parent_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130128022359')[0m
+Migrating to CreateActivityUsers (20130128090421)
+  [1m[35m (2.3ms)[0m  CREATE TABLE `activity_users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `activity_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `invitees_id` int(11), `is_admin` tinyint(1) DEFAULT 0, `status` int(11) DEFAULT 0 NOT NULL, `last_paid_account` float, `last_total_account` float, `last_joined_time` datetime, `last_left_time` datetime, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130128090421')[0m
+  [1m[35m (0.3ms)[0m  SELECT `schema_migrations`.`version` FROM `schema_migrations` 
+Connecting to database specified by database.yml
+
+
+Started GET "/circle/groups" for 127.0.0.1 at 2013-03-25 13:31:06 -0400
+Processing by Circle::GroupsController#index as HTML
+  [1m[36mUser Load (7.6ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`permission` = -1 LIMIT 1[0m
+---token:89511860
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`access_token` = '89511860' LIMIT 1
+Redirected to http://tony.rails/sessions/new
+Filter chain halted as :authorize_login rendered or redirected
+Completed 302 Found in 144ms (ActiveRecord: 9.7ms)
+
+
+Started GET "/sessions/new" for 127.0.0.1 at 2013-03-25 13:31:06 -0400
+Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`permission` = -1 LIMIT 1[0m
+  Rendered sessions/new.html.erb within layouts/personal (5.1ms)
+Completed 500 Internal Server Error in 247ms
+
+ActionView::Template::Error (couldn't find file 'bootstrap-datepicker'
+  (in /home/tony/project_space/Howl/app/assets/stylesheets/application/application.css:11)):
+    9: 
+    10:     <style type="text/css">.holderjs-fluid {font-size:16px;font-weight:bold;text-align:center;font-family:sans-serif;border-collapse:collapse;border:0;vertical-align:middle;margin:0}
+    11:     </style>
+    12:     <%= stylesheet_link_tag "application/application", :media => "all" %>
+    13:     <%= javascript_include_tag "application/application" %>
+    14:     <%= csrf_meta_tags %>
+    15: </head>
+  app/views/layouts/personal.html.erb:12:in `_app_views_layouts_personal_html_erb__81564894_87034230'
+
+
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.1ms)
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.6ms)
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (12.9ms)
+
+
+Started GET "/sessions/new" for 127.0.0.1 at 2013-03-25 13:31:41 -0400
+Processing by SessionsController#new as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`permission` = -1 LIMIT 1
+  Rendered sessions/new.html.erb within layouts/personal (1.2ms)
+Completed 500 Internal Server Error in 11ms
+
+ActionView::Template::Error (couldn't find file 'bootstrap-datepicker'
+  (in /home/tony/project_space/Howl/app/assets/stylesheets/application/application.css:11)):
+    9: 
+    10:     <style type="text/css">.holderjs-fluid {font-size:16px;font-weight:bold;text-align:center;font-family:sans-serif;border-collapse:collapse;border:0;vertical-align:middle;margin:0}
+    11:     </style>
+    12:     <%= stylesheet_link_tag "application/application", :media => "all" %>
+    13:     <%= javascript_include_tag "application/application" %>
+    14:     <%= csrf_meta_tags %>
+    15: </head>
+  app/views/layouts/personal.html.erb:12:in `_app_views_layouts_personal_html_erb__81564894_87034230'
+
+
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.0ms)
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.2ms)
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.8ms)
+
+
+Started GET "/assets/rails.png" for 127.0.0.1 at 2013-03-25 13:31:45 -0400
+Served asset /rails.png - 200 OK (4ms)
+
+
+Started GET "/rails/info/properties" for 127.0.0.1 at 2013-03-25 13:31:47 -0400
+  [1m[36m (0.3ms)[0m  [1mSELECT `schema_migrations`.`version` FROM `schema_migrations` [0m
+Processing by Rails::InfoController#properties as */*
+  Rendered inline template (0.4ms)
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/circle/groups" for 127.0.0.1 at 2013-03-25 13:31:50 -0400
+Processing by Circle::GroupsController#index as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`permission` = -1 LIMIT 1
+---token:89511860
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`access_token` = '89511860' LIMIT 1[0m
+Redirected to http://tony.rails/sessions/new
+Filter chain halted as :authorize_login rendered or redirected
+Completed 302 Found in 3ms (ActiveRecord: 0.8ms)
+
+
+Started GET "/sessions/new" for 127.0.0.1 at 2013-03-25 13:31:50 -0400
+Processing by SessionsController#new as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`permission` = -1 LIMIT 1
+  Rendered sessions/new.html.erb within layouts/personal (1.6ms)
+Completed 500 Internal Server Error in 17ms
+
+ActionView::Template::Error (couldn't find file 'bootstrap-datepicker'
+  (in /home/tony/project_space/Howl/app/assets/stylesheets/application/application.css:11)):
+    9: 
+    10:     <style type="text/css">.holderjs-fluid {font-size:16px;font-weight:bold;text-align:center;font-family:sans-serif;border-collapse:collapse;border:0;vertical-align:middle;margin:0}
+    11:     </style>
+    12:     <%= stylesheet_link_tag "application/application", :media => "all" %>
+    13:     <%= javascript_include_tag "application/application" %>
+    14:     <%= csrf_meta_tags %>
+    15: </head>
+  app/views/layouts/personal.html.erb:12:in `_app_views_layouts_personal_html_erb__81564894_87034230'
+
+
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.1ms)
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.7ms)
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (15.6ms)
+Connecting to database specified by database.yml
+
+
+Started GET "/sessions/new" for 127.0.0.1 at 2013-03-25 13:32:15 -0400
+Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`permission` = -1 LIMIT 1[0m
+  Rendered sessions/new.html.erb within layouts/personal (6.1ms)
+Compiled bootstrap-datepicker.css  (0ms)  (pid 16303)
+Compiled twitter-bootstrap-static/bootstrap.css  (94ms)  (pid 16303)
+Compiled twitter-bootstrap-static/fontawesome.css  (25ms)  (pid 16303)
+Compiled application/bootstrap_and_overrides.css  (203ms)  (pid 16303)
+Compiled application/docs.css  (0ms)  (pid 16303)
+Compiled application/application.css  (236ms)  (pid 16303)
+Compiled jquery.js  (7ms)  (pid 16303)
+Compiled jquery_ujs.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-transition.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-alert.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-modal.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-dropdown.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-scrollspy.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-tab.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-tooltip.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-popover.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-button.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-collapse.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-carousel.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-typeahead.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap/bootstrap-affix.js  (0ms)  (pid 16303)
+Compiled twitter/bootstrap.js  (92ms)  (pid 16303)
+Compiled bootstrap-datepicker/core.js  (1ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.bg.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.br.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.ca.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.cs.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.da.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.de.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.el.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.es.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.fi.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.fr.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.he.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.hr.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.hu.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.id.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.is.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.it.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.ja.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.kr.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.lt.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.lv.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.ms.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.nb.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.nl.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.pl.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.pt.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.ro.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.rs-latin.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.rs.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.ru.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.sk.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.sl.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.sv.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.sw.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.th.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.tr.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.uk.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/locales/bootstrap-datepicker.zh-TW.js  (0ms)  (pid 16303)
+Compiled bootstrap-datepicker/index.js  (204ms)  (pid 16303)
+Completed 500 Internal Server Error in 846ms
+
+ActionView::Template::Error (couldn't find file 'highcharts'
+  (in /home/tony/project_space/Howl/app/assets/javascripts/application.js:17)):
+    10:     <style type="text/css">.holderjs-fluid {font-size:16px;font-weight:bold;text-align:center;font-family:sans-serif;border-collapse:collapse;border:0;vertical-align:middle;margin:0}
+    11:     </style>
+    12:     <%= stylesheet_link_tag "application/application", :media => "all" %>
+    13:     <%= javascript_include_tag "application/application" %>
+    14:     <%= csrf_meta_tags %>
+    15: </head>
+    16: 
+  app/views/layouts/personal.html.erb:13:in `_app_views_layouts_personal_html_erb__492317075_90589360'
+
+
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.6ms)
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (13.6ms)
+Connecting to database specified by database.yml
+
+
+Started GET "/sessions/new" for 127.0.0.1 at 2013-03-25 13:33:03 -0400
+Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`permission` = -1 LIMIT 1[0m
+  Rendered sessions/new.html.erb within layouts/personal (7.7ms)
+Compiled highcharts.js  (4ms)  (pid 16400)
+Compiled application.js  (99ms)  (pid 16400)
+Compiled application/application.js  (305ms)  (pid 16400)
+Completed 500 Internal Server Error in 733ms
+
+ActionController::RoutingError (No route matches {:controller=>"personal/activities", :user_id=>nil}):
+  app/views/layouts/personal.html.erb:42:in `_app_views_layouts_personal_html_erb___349960888_96053470'
+
+
+  Rendered /usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (2.5ms)
+Connecting to database specified by database.yml
+
+
+Started GET "/sessions/new" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Processing by SessionsController#new as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`permission` = -1 LIMIT 1
+  Rendered sessions/new.html.erb within layouts/personal (1.4ms)
+Completed 200 OK in 70ms (Views: 66.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/bootstrap-datepicker.css?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /bootstrap-datepicker.css - 304 Not Modified (4ms)
+
+
+Started GET "/assets/application/application.css?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /application/application.css - 304 Not Modified (9ms)
+
+
+Started GET "/assets/twitter-bootstrap-static/bootstrap.css?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter-bootstrap-static/bootstrap.css - 304 Not Modified (4ms)
+
+
+Started GET "/assets/application/bootstrap_and_overrides.css?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /application/bootstrap_and_overrides.css - 304 Not Modified (5ms)
+
+
+Started GET "/assets/twitter-bootstrap-static/fontawesome.css?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter-bootstrap-static/fontawesome.css - 304 Not Modified (4ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /jquery.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/application/docs.css?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /application/docs.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-transition.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter/bootstrap/bootstrap-transition.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-alert.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter/bootstrap/bootstrap-alert.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-modal.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter/bootstrap/bootstrap-modal.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter/bootstrap/bootstrap-dropdown.js - 304 Not Modified (3ms)
+Served asset /jquery_ujs.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter/bootstrap/bootstrap-scrollspy.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-tab.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter/bootstrap/bootstrap-tab.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter/bootstrap/bootstrap-tooltip.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-popover.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter/bootstrap/bootstrap-popover.js - 304 Not Modified (4ms)
+
+
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-button.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Started GET "/assets/twitter/bootstrap/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter/bootstrap/bootstrap-collapse.js - 304 Not Modified (4ms)
+Served asset /twitter/bootstrap/bootstrap-button.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter/bootstrap/bootstrap-carousel.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-affix.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter/bootstrap/bootstrap-affix.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/twitter/bootstrap.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+
+
+Started GET "/assets/bootstrap-datepicker/core.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /twitter/bootstrap.js - 304 Not Modified (27ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.bg.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.bg.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.br.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.br.js - 304 Not Modified (4ms)
+Served asset /twitter/bootstrap/bootstrap-typeahead.js - 304 Not Modified (9ms)
+Served asset /bootstrap-datepicker/core.js - 304 Not Modified (60ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ca.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:40 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.ca.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.cs.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.cs.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.da.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.da.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.de.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.de.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.el.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.es.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.el.js - 304 Not Modified (4ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.es.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.fi.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.fi.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.fr.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.fr.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.he.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.he.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.hr.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.hr.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.hu.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.id.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.hu.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.id.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.is.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.is.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.it.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.it.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ja.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.kr.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.ja.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.kr.js - 304 Not Modified (3ms)
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.lt.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.lv.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.lv.js - 304 Not Modified (2ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.lt.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ms.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.ms.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.nb.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.nb.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.nl.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.pl.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.nl.js - 304 Not Modified (4ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.pl.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.pt.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js - 304 Not Modified (4ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.pt.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ro.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.ro.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.rs-latin.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.rs-latin.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.rs.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ru.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.rs.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.ru.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.sk.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.sk.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.sl.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.sl.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.sv.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.sv.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.sw.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.sw.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.th.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.tr.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.th.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.tr.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.uk.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.uk.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.zh-TW.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.zh-TW.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/index.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+
+
+Started GET "/assets/highcharts.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /highcharts.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/application/application.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /application/application.js - 304 Not Modified (106ms)
+Served asset /bootstrap-datepicker/index.js - 304 Not Modified (181ms)
+Served asset /application.js - 304 Not Modified (177ms)
+
+
+Started GET "/assets/fontawesome-webfont.woff?v=3.0.2" for 127.0.0.1 at 2013-03-25 13:33:41 -0400
+Served asset /fontawesome-webfont.woff - 304 Not Modified (18ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at 2013-03-25 13:33:45 -0400
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`permission` = -1 LIMIT 1[0m
+  Rendered users/_form.html.erb (6.6ms)
+  Rendered users/new.html.erb within layouts/personal (11.7ms)
+Completed 200 OK in 314ms (Views: 216.6ms | ActiveRecord: 2.6ms)
+
+
+
+
+
+
+Started GET "/assets/bootstrap-datepicker.css?body=1" for 127.0.0.1 at 2013-03-25 13:33:45 -0400
+Started GET "/assets/application/application.css?body=1" for 127.0.0.1 at 2013-03-25 13:33:45 -0400
+Started GET "/assets/twitter-bootstrap-static/bootstrap.css?body=1" for 127.0.0.1 at 2013-03-25 13:33:45 -0400
+Served asset /twitter-bootstrap-static/bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application/bootstrap_and_overrides.css?body=1" for 127.0.0.1 at 2013-03-25 13:33:45 -0400
+Served asset /bootstrap-datepicker.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/application/docs.css?body=1" for 127.0.0.1 at 2013-03-25 13:33:45 -0400
+Served asset /application/bootstrap_and_overrides.css - 304 Not Modified (0ms)
+Served asset /application/application.css - 304 Not Modified (11ms)
+Served asset /application/docs.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/twitter-bootstrap-static/fontawesome.css?body=1" for 127.0.0.1 at 2013-03-25 13:33:45 -0400
+
+
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-transition.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:45 -0400
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:45 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-modal.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:45 -0400
+
+
+Served asset /twitter/bootstrap/bootstrap-transition.js - 304 Not Modified (4ms)
+Started GET "/assets/twitter/bootstrap/bootstrap-alert.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:45 -0400
+
+
+Served asset /twitter/bootstrap/bootstrap-alert.js - 304 Not Modified (0ms)
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:45 -0400
+Served asset /twitter/bootstrap/bootstrap-modal.js - 304 Not Modified (5ms)
+Served asset /twitter-bootstrap-static/fontawesome.css - 304 Not Modified (8ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /jquery.js - 304 Not Modified (7ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /twitter/bootstrap/bootstrap-dropdown.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-tab.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /twitter/bootstrap/bootstrap-scrollspy.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-popover.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /twitter/bootstrap/bootstrap-tab.js - 304 Not Modified (4ms)
+Served asset /twitter/bootstrap/bootstrap-tooltip.js - 304 Not Modified (3ms)
+Served asset /twitter/bootstrap/bootstrap-popover.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-button.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /twitter/bootstrap/bootstrap-collapse.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /twitter/bootstrap/bootstrap-button.js - 304 Not Modified (4ms)
+Served asset /twitter/bootstrap/bootstrap-carousel.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+
+
+
+
+Started GET "/assets/twitter/bootstrap/bootstrap-affix.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/twitter/bootstrap.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /twitter/bootstrap/bootstrap-typeahead.js - 304 Not Modified (4ms)
+Served asset /twitter/bootstrap/bootstrap-affix.js - 304 Not Modified (4ms)
+Served asset /twitter/bootstrap.js - 304 Not Modified (21ms)
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.bg.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/core.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.br.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.bg.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/core.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.br.js - 304 Not Modified (0ms)
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.cs.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ca.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.cs.js - 304 Not Modified (4ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.ca.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.da.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.da.js - 304 Not Modified (3ms)
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.de.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.el.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.es.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.el.js - 304 Not Modified (4ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.de.js - 304 Not Modified (4ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.es.js - 304 Not Modified (4ms)
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.fi.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.fr.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.fr.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.fi.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.he.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.he.js - 304 Not Modified (2ms)
+
+
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.hu.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.id.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.hr.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.hu.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.hr.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.id.js - 304 Not Modified (4ms)
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.is.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.it.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.it.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.is.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ja.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.ja.js - 304 Not Modified (2ms)
+
+
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.kr.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.lv.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.lt.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.kr.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.lv.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.lt.js - 304 Not Modified (3ms)
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.nb.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ms.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.nb.js - 304 Not Modified (2ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.ms.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.nl.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.nl.js - 304 Not Modified (3ms)
+
+
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.pt.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.pl.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.pt.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.pl.js - 304 Not Modified (3ms)
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ro.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.rs-latin.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.rs-latin.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.ro.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.rs.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.rs.js - 304 Not Modified (2ms)
+
+
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ru.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.sl.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.sk.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.sk.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.sl.js - 304 Not Modified (4ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.ru.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.sw.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.sv.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.sw.js - 304 Not Modified (2ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.sv.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.th.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.th.js - 304 Not Modified (2ms)
+
+
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.uk.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.tr.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.uk.js - 304 Not Modified (2ms)
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.tr.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+
+
+Started GET "/assets/bootstrap-datepicker/locales/bootstrap-datepicker.zh-TW.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-datepicker/index.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /bootstrap-datepicker/locales/bootstrap-datepicker.zh-TW.js - 304 Not Modified (30ms)
+
+
+
+
+Started GET "/assets/highcharts.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+
+
+Started GET "/assets/application/application.js?body=1" for 127.0.0.1 at 2013-03-25 13:33:46 -0400
+Served asset /highcharts.js - 304 Not Modified (6ms)
+Served asset /application/application.js - 304 Not Modified (3ms)
+Served asset /bootstrap-datepicker/index.js - 304 Not Modified (111ms)
+Served asset /application.js - 304 Not Modified (131ms)

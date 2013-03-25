@@ -1,4 +1,4 @@
-WolfHowl::Application.routes.draw do
+Howl::Application.routes.draw do
 
   resource :sessions, :only => [:new, :create, :destroy]
 
