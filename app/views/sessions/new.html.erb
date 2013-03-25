@@ -1,0 +1,48 @@
+
+		<div class="container-fluid">
+		<div class="row-fluid">
+		
+			<div class="row-fluid">
+				<div class="span12 center login-header">
+					<h2>欢迎注册Wolf-Howl并开始你的奇妙旅程！</h2>
+				</div><!--/span-->
+			</div><!--/row-->
+			
+			<div class="row-fluid">
+				<div class="well span5 center login-box">
+					<div class="alert alert-info">
+						<%= flash[:notice] %>
+						请输入你的邮箱地址和密码登录！
+					</div>
+
+					<%= form_for(@user, :url =>"/sessions", :class => "form-horizontal" ) do |f| %>
+						<fieldset>
+							<div class="input-prepend" title="电子邮箱" data-rel="tooltip">
+								<span class="add-on"><i class="icon-user"></i></span>
+								<%= f.email_field :email, :class => "input-large span5" %>
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="input-prepend" title="密码" data-rel="tooltip">
+								<span class="add-on"><i class="icon-lock"></i></span>
+								<%= f.password_field :password, :class => "input-large span5" %>
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="input-prepend">
+							<label class="remember" for="remember">
+							<input type="checkbox" id="remember" name="user[is_remember]" value="true"/>记住我！</label>
+							</div>
+							<div class="clearfix"></div>
+
+							<p class="center span5">
+								<%= f.submit "登录", :class => "btn btn-primary"%>
+							</p>
+						</fieldset>
+					<% end %>
+				</div><!--/span-->
+			</div><!--/row-->
+				</div><!--/fluid-row-->
+		
+	</div><!--/.fluid-container-->	
+

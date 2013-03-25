@@ -1,4 +1,62 @@
-Howl::Application.routes.draw do
+WolfHowl::Application.routes.draw do
+
+  resource :sessions, :only => [:new, :create, :destroy]
+
+  resources :users#, :only => [:new, :create, :show, :edit, :update]
+
+  namespace :circle do
+    resources :groups do
+      member do
+        put 'set_admin/:user_id', :action => :set_admin
+        put 'canel_admin/:user_id', :action => :canel_admin
+      end
+      resources :group_users, :only => [:create] 
+
+      resources :budgets
+      resources :accounts
+      resources :activities do 
+        resources :activity_users, :only => [:create]
+        resources :budgets
+        resources :accounts
+      end    
+    end
+  end
+
+  namespace :personal do
+    resources :users, :only =>[:edit,:update] do
+      resources :budgets
+      resources :accounts do
+        get 'statistics', :on => :collection
+      end
+      # resources :groups
+      resources :activities do 
+        resources :budgets
+        resources :accounts
+      end
+    end
+  end
+
+
+  namespace :admin do
+    # resources :budgets
+    
+    # resources :accounts do
+      # get 'statistics', :on => :collection
+    # end
+
+    # resources :group_users
+
+    resources :categories
+
+    # resources :groups
+
+    # resources :users
+
+    resource :sessions
+
+    root :to => "home#index"
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +106,7 @@ Howl::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'home#index'
 
   # See how all your routes lay out with "rake routes"
 
