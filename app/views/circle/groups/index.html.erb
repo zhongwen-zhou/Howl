@@ -11,7 +11,7 @@
         <li>
           <%= link_to "删除这个圈子？", [:circle,@group], :method => :delete, data: { confirm: '你确定删除这个圈子么？' } %>
         </li>
-      <% else %>
+      <% elsif @group %>
             <% if @current_user.joined_group?(@group) %>
               <%= link_to '退出这个圈子!', "/groups/#{@group.id}/group_users/#{@current_user.joined_group(@group).id}", :method => :delete, data: { confirm: '你确定退出这个圈子么？' } %>
             <% else %>
@@ -22,6 +22,9 @@
   </div>
 <% end %>
 
+<% unless @group %>
+  您还没有创建活动的 <%= link_to '创建一个吧！', new_circle_group_path %>
+<% else %>
 <div class="container">
   <div class="row">
         <div class="pagination pagination-small">
@@ -128,7 +131,9 @@
             <% @group.users.each do |member| %>
               <li>
                 <%= link_to member.nick_name, user_path(member) %>
-                <% if member.is_admin_group?(@group) %>
+                <% if member.is_create_group?(@group) %>
+                  / 创建者
+                <% elsif member.is_admin_group?(@group) %>
                   / 管理员
                   <% if @current_user.is_create_group?(@group) %>
                   <%= link_to(" / 取消管理员", "/groups/#{@group.id}/canel_admin/#{member.id}", :method => :put) unless @current_user.is_create_group?(@group)%>
@@ -149,3 +154,4 @@
     $('#group_tab').tab('show');
   })
 </script>
+<% end %>

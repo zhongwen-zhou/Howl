@@ -49,6 +49,9 @@
                     </li>
                 </ul>
               </li>
+              <li class="<%= @active_nav == 'group' ? 'active' : '' %>">
+                <%= link_to("管理我的系统", admin_root_path) if @current_user && @current_user.is_admin? %>
+              </li>
             </ul>
           </div>
           <div class="offset8">

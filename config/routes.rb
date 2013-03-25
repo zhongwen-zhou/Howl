@@ -50,7 +50,7 @@ Howl::Application.routes.draw do
 
     # resources :groups
 
-    # resources :users
+    resources :users
 
     resource :sessions
 

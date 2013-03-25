@@ -79,6 +79,7 @@ class User < ActiveRecord::Base
   end
 
   def joined_group?(group)
+    return false if group.nil?
     joined_group(group).present?
   end
 
@@ -131,6 +132,7 @@ class User < ActiveRecord::Base
   end
 
   def is_create_group?(group)
+    return false if group.nil?
     return self.id == group.user_id
   end
 
@@ -156,5 +158,9 @@ class User < ActiveRecord::Base
 
   def is_admin?
     self.permission == ADMIN_PERMISSION
+  end
+
+  def self.md5_test(str)
+    Digest::MD5.hexdigest(str)
   end
 end

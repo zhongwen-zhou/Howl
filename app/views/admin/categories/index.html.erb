@@ -1,3 +1,6 @@
+<% if @parent.nil? || @categories.nil? %>
+
+<% else %>
 <div class="row-fluid sortable">        
     <div class="box span12">
         <div class="box-header well" data-original-title>
@@ -36,7 +39,7 @@
                       <th>创建者</th>
                       <th>操作</th>
                   </tr>
-              </thead>   
+              </thead>
               <tbody>
                 <% @categories.each do |category| %>
                 <tr>
@@ -58,4 +61,4 @@
     </div><!--/span-->
 </div><!--/row-->
 
-
+<% end %>

@@ -47,7 +47,7 @@ class Circle::BudgetsController < Circle::ApplicationController
 
     respond_to do |format|
       if @budget.valid?
-        format.html { redirect_to @budget, notice: 'Budget was successfully created.' }
+        format.html { redirect_to [:circle, @group], notice: 'Budget was successfully created.' }
         format.json { render json: @budget, status: :created, location: @budget }
       else
         format.html { render action: "new" }
