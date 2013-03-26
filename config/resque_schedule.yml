@@ -1,0 +1,5 @@
+do_my_job:
+  every: 30s
+  class: Jobs::SleepJob
+  args: 1
+  description: Runs the perform method in MyJob
