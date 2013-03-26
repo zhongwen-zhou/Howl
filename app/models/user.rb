@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :accounts, :as => :owner, :dependent => :destroy
   has_many :activities, :as => :owner, :dependent => :destroy
   has_many :budgets, :as => :owner, :dependent => :destroy
-  has_many :images, :as => :imageable
+  # has_many :images, :as => :imageable
 
 
   ADMIN_PERMISSION = 99
@@ -163,4 +163,5 @@ class User < ActiveRecord::Base
   def self.md5_test(str)
     Digest::MD5.hexdigest(str)
   end
+
 end

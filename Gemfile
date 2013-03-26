@@ -9,6 +9,11 @@ gem 'mysql2'
 gem 'kaminari'
 gem 'lazy_high_charts'
 
+gem "redis"
+gem 'redis-store', :git=>'git://github.com/jodosha/redis-store.git' 
+gem 'redis-objects'
+gem 'resque'
+gem 'resque-scheduler'
 
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
