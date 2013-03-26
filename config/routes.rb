@@ -1,3 +1,4 @@
+require 'resque/server'
 Howl::Application.routes.draw do
 
   resource :sessions, :only => [:new, :create, :destroy]
@@ -56,7 +57,7 @@ Howl::Application.routes.draw do
 
     root :to => "home#index"
   end
-
+  mount Resque::Server.new, :at => "/resque"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
