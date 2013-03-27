@@ -12,6 +12,7 @@ gem 'lazy_high_charts'
 gem "redis"
 gem 'redis-store', :git=>'git://github.com/jodosha/redis-store.git' 
 gem 'redis-objects'
+gem 'redis-rails'
 gem 'resque'
 gem 'resque-scheduler'
 

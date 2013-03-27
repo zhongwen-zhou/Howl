@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :budgets, :as => :owner, :dependent => :destroy
   # has_many :images, :as => :imageable
 
+  before_create :generate_encrypt_password
+
 
   ADMIN_PERMISSION = 99
 
@@ -19,8 +21,8 @@ class User < ActiveRecord::Base
 
   def authorize_user
   	db_user = User.where(:email => self.email).first
-  	return nil if db_user.nil? || db_user.password != self.password
-  	return db_user if db_user.password == self.password
+  	return nil if db_user.nil?
+  	return db_user if db_user.password == Digest::MD5.hexdigest(self.password)
   end
 
   def join_group(group, invite = nil, is_admin = false, is_creater = false)
@@ -160,8 +162,10 @@ class User < ActiveRecord::Base
     self.permission == ADMIN_PERMISSION
   end
 
-  def self.md5_test(str)
-    Digest::MD5.hexdigest(str)
+  private
+
+  def generate_encrypt_password
+    self.password = Digest::MD5.hexdigest(self.password)
   end
 
 end
