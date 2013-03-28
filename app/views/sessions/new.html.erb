@@ -11,23 +11,27 @@
 			<div class="row-fluid">
 				<div class="well span5 center login-box">
 					<div class="alert alert-info">
-						<%= flash[:notice] %>
-						请输入你的邮箱地址和密码登录！
+						<%= flash[:notice].nil? ? "请输入你的邮箱地址和密码登录！" : flash[:notice] %>
 					</div>
 
 					<%= form_for(@user, :url =>"/sessions", :class => "form-horizontal" ) do |f| %>
 						<fieldset>
 							<div class="input-prepend" title="电子邮箱" data-rel="tooltip">
-								<span class="add-on"><i class="icon-user"></i></span>
-								<%= f.email_field :email, :class => "input-large span10" %>
+								<span class="add-on"><i class="icon-envelope"></i></span>
+								<%= f.email_field :email, :value => @user.email, :class => "input-large span10" %>
 							</div>
 							<div class="clearfix"></div>
 
 							<div class="input-prepend" title="密码" data-rel="tooltip">
 								<span class="add-on"><i class="icon-lock"></i></span>
-								<%= f.password_field :password, :class => "input-large span10" %>
+								<%= f.password_field :password, :value => @user.password, :class => "input-large span10" %>
 							</div>
 							<div class="clearfix"></div>
+							<div class="input-prepend" title="验证码" data-rel="tooltip">
+								<span class="add-on"><i class="icon-camera"></i></span>
+								<%= show_simple_captcha %>
+							</div>
+							<div class="clearfix"></div>							
 
 							<div class="input-prepend">
 							<label class="remember" for="remember">

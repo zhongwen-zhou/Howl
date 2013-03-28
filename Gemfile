@@ -15,7 +15,7 @@ gem 'redis-objects'
 gem 'redis-rails'
 gem 'resque'
 gem 'resque-scheduler'
-
+gem 'galetahub-simple_captcha', :require => 'simple_captcha'#, :git => 'git://github.com/galetahub/simple-captcha.git'
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
 end
@@ -36,6 +36,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+# gem 'client_side_validations'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

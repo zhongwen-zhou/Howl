@@ -1,5 +1,6 @@
 #encoding: utf-8
 class SessionsController < ApplicationController
+  include SimpleCaptcha::ControllerHelpers
   layout 'personal'
   skip_filter :authorize_login
   def index
@@ -10,8 +11,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    Rails.logger.info("====params:#{params[:user]}")
-  	user = User.new(params[:user])
+    user = User.new(params[:user])
+    unless simple_captcha_valid?
+      return redirect_to new_sessions_path, :notice => "验证码错误！"
+    end
   	@user = user.authorize_user
     if @user.present?
       @user.sign_in(request.remote_ip)
