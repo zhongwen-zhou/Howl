@@ -82,6 +82,7 @@ class User < ActiveRecord::Base
 
   def joined_group?(group)
     return false if group.nil?
+    return true if is_create_group?(group)
     joined_group(group).present?
   end
 
@@ -161,6 +162,11 @@ class User < ActiveRecord::Base
   def is_admin?
     self.permission == ADMIN_PERMISSION
   end
+
+
+  # def to_param
+  #   self.nick_name
+  # end
 
   private
 

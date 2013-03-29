@@ -4,6 +4,7 @@ class Account < ActiveRecord::Base
   paginates_per 11
   belongs_to :owner, :polymorphic => :true
   belongs_to :genre, :polymorphic => :true
+  belongs_to :paid_user, :class_name => :User, :foreign_key => :paid_user_id
   # belongs_to :activity
   validates :sum, :presence => { :message => "金额不能为空！"}
   IO_TYPE_INCOME = 0

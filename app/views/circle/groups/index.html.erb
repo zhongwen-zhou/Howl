@@ -30,10 +30,10 @@
         <div class="pagination pagination-small">
           <ul>
             <li>
-              <%= link_to_unless( @group.first?, '上一个', circle_groups_path(:index => 'prev',:current_group_id => @group.id )) %>
+              <%= link_to('上一个圈子', circle_groups_path(:index => 'prev',:current_group_id => @group.id )) unless @group.first? %>
             </li>
             <li>
-              <%= link_to_unless( @group.last?, '下一个',circle_groups_path(:index => 'next',:current_group_id => @group.id)) %>
+              <%= link_to('下一个圈子',circle_groups_path(:index => 'next',:current_group_id => @group.id)) unless @group.last? %>
             </li>
           </ul>
         </div>
@@ -50,15 +50,6 @@
           <p>
             <%= @group.description %>
           </p>
-
-              <ul id="group_tab" class="nav nav-tabs">
-                <li><a href="#activities_<%= @group.id %>" data-toggle="tab">活动</a></li>
-                <li><a href="#budgets_<%= @group.id %>" data-toggle="tab">预算</a></li>
-                <li><a href="#accounts_<%= @group.id %>" data-toggle="tab">帐务</a></li>
-              </ul>
-
-              <div class="tab-content">
-                <div class="tab-pane active" id="activities_<%= @group.id %>">
                   <% if @group.activities.empty? %>
                     <%= link_to "没有活动，发起一个让大家来参与吧！", new_circle_group_activity_path(@group) %>
                   <% else %>
@@ -79,7 +70,7 @@
 
                         <%= link_to( "创建预算", new_circle_group_activity_budget_path(@group,active)) if @current_user.is_admin_group?(@group) %>
                         <%= link_to(" / 添加帐务",new_circle_group_activity_account_path(@group,active)) if @current_user.is_admin_group?(@group) %>
-                        <%= link_to(" / 参见活动",circle_group_activity_activity_users_path(@group,active), :method => :post) if (!@current_user.joind_activity?(active) && !@current_user.is_create_group?(@group)) %>
+                        <%= link_to(" / 参见活动",circle_group_activity_activity_users_path(@group,active), :method => :post) if @current_user.joind_activity?(active) %>
                         <%= link_to(" / 退出活动",circle_group_activity_activity_users_path(@group,active), :method => :delete, data: { confirm: '你确定退出该活动么？' }) if (@current_user.joind_activity?(active) && !@current_user.is_create_group?(@group)) %>
                       </div>
                     <% end %>
@@ -87,32 +78,6 @@
                       <%= link_to "发起活动", new_circle_group_activity_path(@group) %>
                     <% end %>
                   <% end %>
-                </div>
-                <div class="tab-pane" id="budgets_<%= @group.id %>">
-                  <% if @group.budgets.empty? %>
-                    <%= link_to "还没有预算的，策划一个新预算！", new_circle_group_budget_path(@group) %>
-                  <% else %>
-                    <% @group.budgets.each do |budget| %>
-                        <%= "#{budget.total_sum}  #{budget.created_at.strftime('%Y-%m-%d %H:%M:%S')}  #{budget.description}" %>  <br/>
-                    <% end %>
-                    <% if @current_user.is_admin_group?(@group) %>
-                      <%= link_to "策划一个新预算！", new_circle_group_budget_path(@group) %>
-                    <% end %>
-                  <% end %>
-                </div>
-                <div class="tab-pane" id="accounts_<%= @group.id %>">
-                  <% if @group.accounts.empty? %>
-                  <%= link_to "做好帐哦，来记一个吧！", new_circle_group_account_path(@group) %>
-                  <% else %>
-                    <% @group.accounts.each do |account| %>
-                        <%= "#{account.sum}  #{account.created_at.strftime('%Y-%m-%d %H:%M:%S')}  #{account.remark}" %>  <br/>
-                    <% end %>
-                    <% if @current_user.is_admin_group?(@group) %>
-                      <%= link_to "记个账先！", new_circle_group_account_path(@group) %>
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
 
         </div>
         <div class="span3">
@@ -146,6 +111,39 @@
           </ul>
         </div>
       </div>
+    </div>
+
+    <div class="span4">
+      <ul id="group_tab" class="nav nav-tabs">
+        <li><a href="#budgets_tab" data-toggle="tab">预算</a></li>
+        <li><a href="#accounts_tab" data-toggle="tab">帐务</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane" id="budgets_tab">
+          <% if @group.budgets.empty? %>
+            <%= link_to "还没有预算的，策划一个新预算！", new_circle_group_budget_path(@group) %>
+          <% else %>
+            <% @group.budgets.each do |budget| %>
+                <%= "#{budget.total_sum}  #{budget.created_at.strftime('%Y-%m-%d %H:%M:%S')}  #{budget.description}" %>  <br/>
+            <% end %>
+            <% if @current_user.is_admin_group?(@group) %>
+              <%= link_to "策划一个新预算！", new_circle_group_budget_path(@group) %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="tab-pane" id="accounts_tab">
+          <% if @group.accounts.empty? %>
+          <%= link_to "做好帐哦，来记一个吧！", new_circle_group_account_path(@group) %>
+          <% else %>
+            <% @group.accounts.each do |account| %>
+                <%= "#{account.sum}  #{account.created_at.strftime('%Y-%m-%d %H:%M:%S')}  #{account.remark}   #{account.paid_user.nick_name}" %>  <br/>
+            <% end %>
+            <% if @current_user.is_admin_group?(@group) %>
+              <%= link_to "记个账先！", new_circle_group_account_path(@group) %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>      
     </div>
   </div>
 </div>
