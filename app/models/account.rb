@@ -16,6 +16,7 @@ class Account < ActiveRecord::Base
 
   scope :income, where(:io_type => IO_TYPE_INCOME)
   scope :outcome, where(:io_type => IO_TYPE_OUTCOME)
+  scope :un_activity, where("genre_type != 'Activity'")
 
   def self.statistics(user,type,value,start_date,end_date)
   	if type == :io_type

@@ -2,11 +2,12 @@ class Circle::AccountsController < Circle::ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
-    @accounts = Account.all
-
+    group = Group.find(params[:group_id])
+    @accounts = group.activities.find(params[:activity_id]).accounts
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @accounts }
+      # format.html # index.html.erb
+      # format.json { render json: @accounts }
+      format.js
     end
   end
 

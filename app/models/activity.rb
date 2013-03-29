@@ -81,6 +81,10 @@ class Activity < ActiveRecord::Base
     personal_outcome_account(user) - personal_outcome_total_account(user)
   end
 
+  def running_state_name
+    STATUS[self.status]
+  end
+
   private
   def check_status
     return STATUS_UN_START if Time.now < self.start_date
