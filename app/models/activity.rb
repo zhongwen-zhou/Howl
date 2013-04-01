@@ -85,6 +85,13 @@ class Activity < ActiveRecord::Base
     STATUS[self.status]
   end
 
+  def self.update_status
+    activities = Activity.where("status != ?", STATUS_END)
+    activities.each do |activity|
+      activity.check_update_status
+    end
+  end
+
   private
   def check_status
     return STATUS_UN_START if Time.now < self.start_date

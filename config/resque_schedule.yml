@@ -1,5 +1,11 @@
-do_my_job:
-  every: 30s
-  class: Jobs::SleepJob
-  args: 1
-  description: Runs the perform method in MyJob
+# do_my_job:
+#   every: 30s
+#   class: Jobs::SleepJob
+#   args: 1
+#   description: Runs the perform method in MyJob
+
+update_activities_status:
+  cron: "0 0 * * * "
+  # every: 30s
+  class: Jobs::UpdateActivityJob
+  description: update_activities_status 
