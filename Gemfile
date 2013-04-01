@@ -18,6 +18,7 @@ gem 'resque-scheduler'
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'#, :git => 'git://github.com/galetahub/simple-captcha.git'
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
+  gem "factory_girl_rails"#, "~> 4.0"  
 end
 
 
