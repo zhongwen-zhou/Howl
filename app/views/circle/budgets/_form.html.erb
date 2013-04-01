@@ -21,6 +21,10 @@
   </div>
   <% unless @activity.present? %>
     <div class="field">
+      <%= f.label :genre_id, "请选择类别" %><br />
+      <%= select_tag('budget[genre_id]', option_groups_from_collection_for_select(Category.outcome.top_categories, :children, :name, :id, :name, 3)) %>
+    </div>  
+    <div class="field">
       <%= f.label :start_date, "开始日期" %><br />
       <%= f.text_field :start_date %>
     </div>
@@ -29,8 +33,8 @@
       <%= f.text_field :end_date %>
     </div>
     <div class="field">
-      <%= f.label :visable_status, "可见状态" %><br />
-      <%= f.number_field :visable_status %>
+      <%= f.hidden_field :visable_status, :vaule => Budget::VISABLE_STATUS_GROUP %>
+      <%= f.hidden_field :genre_type, :vaule => 'Category' %>
     </div>
   <% else %>
     <%= f.hidden_field(:start_date,:vaule => @activity.start_date ) %>

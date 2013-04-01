@@ -1,4 +1,9 @@
 (function(){
-    alert("ok!<%= @accounts.count %>");
-    
+    group_budgets_div = $("#group_budgets_div");
+    group_budgets_div.empty();
+    $('#group_activity_budget_li').add_class('active');
+    <% @budgets.each do |budget| %>
+    	budget_p = $("<%= "<p>#{budget.total_sum}  #{budget.created_at.strftime('%Y-%m-%d %H:%M:%S')}  #{budget.description} </p>".html_safe %>");
+    	group_budgets_div.append(budget_p);
+    <% end %>
 })();

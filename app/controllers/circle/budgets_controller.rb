@@ -2,11 +2,12 @@ class Circle::BudgetsController < Circle::ApplicationController
   # GET /budgets
   # GET /budgets.json
   def index
-    @budgets = Budget.all
-
+    @genre_type = 'Activity'
+    @genre_type = 'Category' if params[:genre_type] == 'Category'
+    group = Group.find(params[:group_id])
+    @budgets = group.budgets.where(:genre_type => @genre_type)
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @budgets }
+      format.js #on { render json: @budget }
     end
   end
 

@@ -6,6 +6,7 @@ class Category < ActiveRecord::Base
   belongs_to :user
   belongs_to :parent, :class_name => :Category, :foreign_key => :parent_id
   has_many :children, :class_name => :Category, :foreign_key => :parent_id
+  has_many :budgets, :as => :genre, :dependent => :destroy
   validates :name, :presence => { :message => "不能为空！"}
   LEVEL_TOP = 0
   IO_TYPE_INCOME = 0

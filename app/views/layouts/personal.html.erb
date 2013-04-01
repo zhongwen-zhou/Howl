@@ -58,7 +58,7 @@
             <ul class="nav">
                 <% if is_login? %>
               <li class="active">
-                  <%= link_to @current_user.nick_name, edit_user_path(@current_user) %>
+                  <%= link_to @current_user.nick_name, user_path(@current_user) %>
               </li>
               <li class="active">
                   <%= link_to "注销", sessions_path, :method => "delete" %>

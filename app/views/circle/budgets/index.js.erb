@@ -1,0 +1,19 @@
+(function(){
+    group_budgets_div = $("#group_budgets_div");
+    group_budgets_div.empty();
+	<% if @genre_type == 'Category' %>
+		$('#group_category_budget_li').addClass('active');
+		$('#group_activity_budget_li').removeClass('active');
+	    <% @budgets.each do |budget| %>
+	    	budget_p = $("<%= "<p>#{budget.total_sum}  #{budget.created_at.strftime('%Y-%m-%d %H:%M:%S')}  #{budget.description} #{budget.genre.name}</p>".html_safe %>");
+	    	group_budgets_div.append(budget_p);
+	    <% end %>
+	<% elsif @genre_type == 'Activity' %>
+		$('#group_activity_budget_li').addClass('active');
+		$('#group_category_budget_li').removeClass('active');
+	    <% @budgets.each do |budget| %>
+			budget_p = $("<%= "<p>#{budget.total_sum}  #{budget.created_at.strftime('%Y-%m-%d %H:%M:%S')}  #{budget.description} #{budget.genre.subject}</p>".html_safe %>");
+			group_budgets_div.append(budget_p);
+	    <% end %>
+	<% end %>
+})();

@@ -58,6 +58,7 @@
                         <%= active.subject %> / <%= link_to active.user.nick_name, user_path(active.user) %> / <%= active.start_date.strftime("%Y-%m-%d") %> -- <%= active.end_date.strftime("%Y-%m-%d") %>
                         <br />
                         活动状态:<%= active.running_state_name %>  <br/>
+                        <% if @current_user.joind_activity?(active) %>
                         总预算：<%= active.total_budgets_sum %> / 目前支出：<%= active.total_accounts_sum %> / 当前余额：<%= active.balance_sum %> 
                         <br />
                         我应该支出：<%= active.personal_outcome_account(@current_user) %>
@@ -65,13 +66,12 @@
                         我已经支出：<%= active.personal_outcome_total_account(@current_user) %> 
                         <br />
                         我还应该支付：<%= active.personal_outcome_should_account(@current_user)%>
-
                         <br />
-
+                        <% end %>
                         <%= link_to( "创建预算", new_circle_group_activity_budget_path(@group, active)) if @current_user.is_admin_group?(@group) %>
                         <%= link_to(" / 添加帐务",new_circle_group_activity_account_path(@group, active)) if @current_user.is_admin_group?(@group) %>
                         <%= link_to("查看帐务", circle_group_activity_accounts_path(@group, active), :remote => true) if false %>
-                        <%= link_to(" / 参见活动",circle_group_activity_activity_users_path(@group,active), :method => :post) if @current_user.joind_activity?(active) %>
+                        <%= link_to(" / 参见活动",circle_group_activity_activity_users_path(@group,active), :method => :post) unless @current_user.joind_activity?(active) %>
                         <%= link_to(" / 退出活动",circle_group_activity_activity_users_path(@group,active), :method => :delete, data: { confirm: '你确定退出该活动么？' }) if (@current_user.joind_activity?(active) && !@current_user.is_create_group?(@group)) %>
                       </div>
                     <% end %>
@@ -115,41 +115,27 @@
     </div>
 
     <div class="span4">
-
-<!-- modal test start!
-
-<a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a> 
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
-  </div>
-  <div class="modal-body">
-    <p>One fine body…</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Save changes</button>
-  </div>
-</div>
-
-modal test end! -->
-
       <ul id="group_tab" class="nav nav-tabs">
         <li><a href="#budgets_tab" data-toggle="tab">预算</a></li>
         <li><a href="#accounts_tab" data-toggle="tab">帐务</a></li>
+        <li><a href="#contribution_tab" data-toggle="tab">我的贡献</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane" id="budgets_tab">
-          <% if @group.budgets.empty? %>
-            <%= link_to "还没有预算的，策划一个新预算！", new_circle_group_budget_path(@group) %>
-          <% else %>
-            <% @group.budgets.each do |budget| %>
-                <%= "#{budget.total_sum}  #{budget.created_at.strftime('%Y-%m-%d %H:%M:%S')}  #{budget.description}" %>  <br/>
-            <% end %>
-            <% if @current_user.is_admin_group?(@group) %>
-              <%= link_to "策划一个新预算！", new_circle_group_budget_path(@group) %>
-            <% end %>
+          总预算：<%= @group.total_budgets_sum %> / 目前支出：<%= @group.total_accounts_sum %> / 当前余额：<%= @group.balance_sum %> <br/>         
+          <ul class="nav nav-pills">
+            <li id='group_activity_budget_li'>
+              <%= link_to('活动预算', circle_group_budgets_path(@group, :genre_type => "Activity"), :remote => true) %>
+            </li>
+            <li id='group_category_budget_li'>
+              <%= link_to('类别预算', circle_group_budgets_path(@group, :genre_type => "Category"), :remote => true) %>
+            </li>
+          </ul>
+
+          <div id='group_budgets_div'>          
+          </div>
+          <% if @current_user.is_admin_group?(@group) %>
+            <%= link_to "策划一个新预算！", new_circle_group_budget_path(@group) %>
           <% end %>
         </div>
         <div class="tab-pane" id="accounts_tab">
@@ -164,6 +150,14 @@ modal test end! -->
             <% end %>
           <% end %>
         </div>
+        <div class="tab-pane" id="contribution_tab">
+          我应该支出：<%= @group.personal_outcome_account(@current_user) %>
+          <br />
+          我已经支出：<%= @group.personal_outcome_total_account(@current_user) %> 
+          <br />
+          我还应该支付：<%= @group.personal_outcome_should_account(@current_user)%>
+          <br />
+        </div>        
       </div>      
     </div>
   </div>

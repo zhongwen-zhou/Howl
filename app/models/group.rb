@@ -27,4 +27,47 @@ class Group < ActiveRecord::Base
   def last?
     Group.last == self
   end
+
+  def total_budgets_sum
+    sum = 0
+    budgets.each do |budget|
+      sum += budget.total_sum
+    end
+    return sum
+  end
+
+  def total_accounts_sum
+    sum = 0
+    accounts.each do |account|
+      sum += account.sum
+    end
+    return sum
+  end
+
+  def balance_sum
+    return total_budgets_sum - total_accounts_sum
+  end  
+
+  def personal_outcome_account(user)
+    accounts = self.accounts
+    sum = 0
+    accounts.each do |account|
+      sum += account.sum
+    end
+    return sum/self.member_count
+  end
+
+  def personal_outcome_total_account(user)
+      paid_sum = 0
+      self.accounts.where(:paid_user_id => user.id).each {|a| paid_sum += a.sum }
+      paid_sum
+  end  
+
+  def personal_outcome_should_account(user)
+    personal_outcome_account(user) - personal_outcome_total_account(user)
+  end  
+
+  def budgets_by_genre_type(type)
+    self.budgets.where(:genre_type => type)    
+  end
 end

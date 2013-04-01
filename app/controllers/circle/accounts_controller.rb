@@ -2,8 +2,11 @@ class Circle::AccountsController < Circle::ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
+    genre_type = 'Activity'
+    genre_type = 'Category' if params[:genre_type] == 'Activity'
     group = Group.find(params[:group_id])
-    @accounts = group.activities.find(params[:activity_id]).accounts
+    @accounts = group.accounts.where(:genre_type => genre_type)
+    # @accounts = group.activities.find(params[:activity_id]).accounts.where(:genre_type => genre_type)
     respond_to do |format|
       # format.html # index.html.erb
       # format.json { render json: @accounts }

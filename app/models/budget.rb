@@ -6,6 +6,7 @@ class Budget < ActiveRecord::Base
   belongs_to :genre, :polymorphic => :true
   belongs_to :user
   has_many :accounts, :as => :genre, :dependent => :destroy
+  scope :un_activity, where("genre_type != 'Activity'")
 
   VISABLE_STATUS_PUBLIC = 0
   VISABLE_STATUS_FRIENDLY = 1
