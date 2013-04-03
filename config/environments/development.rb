@@ -49,11 +49,10 @@ Howl::Application.configure do
 
 config.action_mailer.delivery_method = :smtp
 config.action_mailer.smtp_settings = {
-  :address              => "smtp.qiye.163.com",
+  :address              => "smtp.qq.com",
   :port                 => 25,
-  :domain               => 'www.nbd.com.cn',
-  :user_name            => 'info@nbd.com.cn',
-  :password             => 'nbd9780xs',
+  :user_name            => '348281683@qq.com',
+  :password             => 'tonetony',
   :authentication       => 'plain',
   :enable_starttls_auto => true  } 
 end

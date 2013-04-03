@@ -1,0 +1,5 @@
+(function(){
+	$('.group_activity_li').removeClass('active');
+	$("#group_activity_li_<%= @activity.id %>").addClass('active');
+	$('#activity_detail_div').replaceWith('<%= render 'detail', :active => @activity %>');
+})();

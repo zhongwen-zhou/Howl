@@ -13,11 +13,13 @@ class Circle::ActivitiesController < Circle::ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
-    @activity = Activity.find(params[:id])
+    @group = Group.find(params[:group_id])
+    @activity = @group.activities.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @activity }
+      format.js
+      # format.html # show.html.erb
+      # format.json { render json: @activity }
     end
   end
 
