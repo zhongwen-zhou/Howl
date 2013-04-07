@@ -17,3 +17,4 @@
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.es
 //= require highcharts
 //= require application
+//= require rails.validations

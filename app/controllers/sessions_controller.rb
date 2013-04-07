@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
   layout 'personal'
   skip_filter :authorize_login
+  skip_filter :require_login
   def index
   end
 

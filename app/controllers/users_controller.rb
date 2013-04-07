@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   # layout false
   # skip_filter :current_user, :only => [:new, :create]
   skip_filter :authorize_login, :only => [:new, :create]
+  skip_filter :require_login
   # GET /users
   # GET /users.json
   def index

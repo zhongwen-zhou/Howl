@@ -53,7 +53,7 @@
           <div class="container-fluid">
             <div class="row-fluid">
               <div class="span2">
-                    <input type='button' value='up' class='btn btn-success'/>
+                    <input type='button' value='向上' class='btn btn-success'/>
                     <ul class="nav nav-tabs nav-stacked">
                       <% @group.activities.each do |activity| %>
                         <li id="group_activity_li_<%=activity.id%>" class="group_activity_li">
@@ -61,7 +61,7 @@
                         </li>
                       <% end %>
                     </ul>
-                    <input type='button' value='down' class='btn btn-warning'/>
+                    <input type='button' value='向下' class='btn btn-warning'/>
               </div>
               <div class="span10">
                             <% if @group.activities.empty? %>

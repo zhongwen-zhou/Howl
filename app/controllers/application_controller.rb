@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :current_user
   before_filter :authorize_login
   # before_filter :active_nav
-
+  before_filter :require_login
   def is_login?
     session[:current_user_id].present?
   end
@@ -35,6 +35,11 @@ class ApplicationController < ActionController::Base
       end
     end
   	return redirect_to new_sessions_path unless @current_user.present?
+  end
+
+  def require_login
+    # session[:login_jump_path] = request.fullpath
+    return redirect_to new_sessions_path if @current_user.is_guest_user?
   end
 
   # def active_nav(name)
