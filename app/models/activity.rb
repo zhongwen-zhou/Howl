@@ -63,7 +63,7 @@ class Activity < ActiveRecord::Base
     if self.owner_type == 'User'
       total_accounts_sum
     elsif self.owner_type == 'Group'
-      total_accounts_sum/owner.users.size
+      total_accounts_sum/self.users.size
     end
   end
 

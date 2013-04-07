@@ -18,6 +18,9 @@ class Category < ActiveRecord::Base
   scope :outcome, where(:io_type => IO_TYPE_OUTCOME)  
   # scope :root_categories, where(:level => LEVEL_ROOT)   
 
+  STATUS_ENABLE = 0
+  STATUS_DISABLE = 1
+  STATUS_TYPE = {STATUS_ENABLE => '可用', STATUS_DISABLE => '不可用'}
 
   def create_child(user,params)
   	params.delete(:parent_id)

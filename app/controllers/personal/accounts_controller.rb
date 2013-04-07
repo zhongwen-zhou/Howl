@@ -39,6 +39,13 @@ class Personal::AccountsController < Personal::ApplicationController
       end
       @budget_id = budget.id
       @accounts = @current_user.accounts.where(:genre_type => 'Budget', :genre_id => budget.id).page(params[:page])
+    elsif params[:top_menu_type] == 'group_type'
+      @top_menu_type = 'group_type'
+      @groups = Group.where("id in (?)", @current_user.joined_group_ids)
+      @group = @groups.first if params[:group_id].nil?
+      @group = @groups.find(params[:group_id].to_i) if params[:group_id].present?
+      @group_id = @group.id
+      @accounts = @group.accounts.page(params[:page])
     else
       @top_menu_type = 'all'
       @accounts = @current_user.accounts.page(params[:page])
@@ -100,15 +107,6 @@ class Personal::AccountsController < Personal::ApplicationController
 
       end
     end
-    # respond_to do |format|
-    #   if @account.valid?
-    #     format.html { redirect_to @account, notice: 'Account was successfully created.' }
-    #     format.json { render json: @account, status: :created, location: @account }
-    #   else
-    #     format.html { render action: "new" }
-    #     format.json { render json: @account.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PUT /accounts/1

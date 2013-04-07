@@ -57,22 +57,24 @@
                     <ul class="nav nav-tabs nav-stacked">
                       <% @group.activities.each do |activity| %>
                         <li id="group_activity_li_<%=activity.id%>" class="group_activity_li">
-                          <%= link_to(activity.subject, circle_group_activity_path(@group, activity), :remote => true) %>
+                          <small>
+                            <%= link_to(activity.subject, circle_group_activity_path(@group, activity), :remote => true) %>
+                          </small>
                         </li>
                       <% end %>
                     </ul>
                     <input type='button' value='向下' class='btn btn-warning'/>
               </div>
               <div class="span10">
-                            <% if @group.activities.empty? %>
-                              <%= link_to "没有活动，发起一个让大家来参与吧！", new_circle_group_activity_path(@group) %>
-                            <% else %>
-                              <% active = @group.activities.first %>
-                              <%= render 'circle/activities/detail', :active => active %>
-                            <% end %>
-                            <% if @current_user.is_admin_group?(@group) %>
-                              <%= link_to "发起活动", new_circle_group_activity_path(@group) %>
-                            <% end %>
+                  <% if @group.activities.empty? %>
+                    <%= link_to "没有活动，发起一个让大家来参与吧！", new_circle_group_activity_path(@group) %>
+                  <% else %>
+                    <% active = @group.activities.first %>
+                    <%= render 'circle/activities/detail', :active => active %>
+                  <% end %>
+                  <% if @current_user.is_admin_group?(@group) %>
+                    <%= link_to "发起活动", new_circle_group_activity_path(@group) %>
+                  <% end %>
               </div>
             </div>
           </div>

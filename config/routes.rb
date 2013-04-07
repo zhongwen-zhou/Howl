@@ -3,7 +3,7 @@ Howl::Application.routes.draw do
 
   resource :sessions, :only => [:new, :create, :destroy]
 
-  resources :users#, :only => [:new, :create, :show, :edit, :update]
+  resources :users, :except => [:index, :destroy]
 
   namespace :circle do
     resources :groups do

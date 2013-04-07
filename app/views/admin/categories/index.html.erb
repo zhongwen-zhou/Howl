@@ -32,7 +32,6 @@
                   <tr>
                       <th>类别名</th>
                       <th>类别描述</th>
-                      <th>类别级数</th>
                       <th>父类别</th>
                       <th>类别状态</th>
                       <th>类别位置</th>
@@ -45,9 +44,8 @@
                 <tr>
                 <td><%= category.name %></td>
                 <td><%= category.description %></td>
-                <td><%= category.level %></td>
                 <td><%= category.parent.name if category.parent.present? %></td>
-                <td><%= category.status %></td>
+                <td><%= Category::STATUS_TYPE[category.status] %></td>
                 <td><%= category.postion %></td>
                 <td><%= category.user.nick_name %></td>
                 <td><%= link_to 'Edit', edit_admin_category_path(category) %></td>

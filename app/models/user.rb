@@ -1,5 +1,6 @@
 #encoding: utf-8
 class User < ActiveRecord::Base
+  include Redis::Objects
   attr_accessible :access_token, :brief_introduction, :current_sign_in_at, :current_sign_in_ip, :email, :follower_count, :following_count, :group_count, :last_sign_in_at, :last_sign_in_ip, :nick_name, :password, :sign_in_count, :status, :token_updated_at, :permission, :password_confirmation, :is_remember, :images, :image
   validates :email, :nick_name, :password, :presence => { :message => "不能为空！"}
   validates :password, :confirmation => true
@@ -14,6 +15,7 @@ class User < ActiveRecord::Base
 
   before_create :generate_encrypt_password
 
+  list :joined_group_ids
 
   ADMIN_PERMISSION = 99
 

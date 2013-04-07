@@ -34,6 +34,9 @@
                 <li class="<%= @top_menu_type == 'budget_type' ? 'active' : '' %>">
                     <%= link_to "预算帐务", personal_user_accounts_path(@current_user, :top_menu_type => 'budget_type') %>
                 </li> 
+                <li class="<%= @top_menu_type == 'group_type' ? 'active' : '' %>">
+                    <%= link_to "圈子帐务", personal_user_accounts_path(@current_user, :top_menu_type => 'group_type') %>
+                </li>                 
                 <li class="<%= @top_menu_type == 'statistics' ? 'active' : '' %>">
                     <%= link_to "帐务统计", statistics_personal_user_accounts_path(@current_user, :top_menu_type => 'budget_type') %>
                 </li>                                                                              
@@ -71,6 +74,14 @@
                       <% @current_user.budgets.each do |budget| %>
                         <li class="<%= @budget_id == budget.id ? 'active' : '' %>">
                           <%= link_to budget.name, personal_user_accounts_path(@current_user, :top_menu_type => 'budget_type', :budget_id => budget.id) %>
+                        </li>
+                      <% end %>
+                    </ul> 
+                <% elsif @top_menu_type =='group_type' %>
+                    <ul class="nav nav-tabs">
+                      <% @groups.each do |group| %>
+                        <li class="<%= @group_id == group.id ? 'active' : '' %>">
+                          <%= link_to group.name, personal_user_accounts_path(@current_user, :top_menu_type => 'group_type', :group_id => group.id) %>
                         </li>
                       <% end %>
                     </ul>                                                    

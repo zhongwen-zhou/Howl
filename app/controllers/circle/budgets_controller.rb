@@ -4,8 +4,8 @@ class Circle::BudgetsController < Circle::ApplicationController
   def index
     @genre_type = 'Activity'
     @genre_type = 'Category' if params[:genre_type] == 'Category'
-    group = Group.find(params[:group_id])
-    @budgets = group.budgets.where(:genre_type => @genre_type)
+    @group = Group.find(params[:group_id])
+    @budgets = @group.budgets.where(:genre_type => @genre_type)
     respond_to do |format|
       format.js #on { render json: @budget }
     end
