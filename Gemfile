@@ -16,6 +16,13 @@ gem 'redis-rails'
 gem 'resque'
 gem 'resque-scheduler'
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'#, :git => 'git://github.com/galetahub/simple-captcha.git'
+
+gem 'omniauth'
+
+gem 'omniauth-weibo-oauth2'
+
+gem 'omniauth-qq-connect'
+
 # gem 'capistrano'
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
