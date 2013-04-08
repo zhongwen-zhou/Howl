@@ -16,12 +16,14 @@ gem 'redis-rails'
 gem 'resque'
 gem 'resque-scheduler'
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'#, :git => 'git://github.com/galetahub/simple-captcha.git'
-gem 'capistrano'
+# gem 'capistrano'
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
   gem "factory_girl_rails"#, "~> 4.0"  
 end
-
+group :development do
+  gem 'mina', :git => 'git://github.com/nadarei/mina.git'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
