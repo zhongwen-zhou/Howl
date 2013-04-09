@@ -1,4 +1,5 @@
-
+<script type="text/javascript"
+src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="100414912" data-redirecturi="http://wolf-howl.me/auth/qq/sign_in" charset="utf-8"></script>
 		<div class="container-fluid">
 		<div class="row-fluid">
 		
@@ -44,6 +45,12 @@
 							</p>
 						</fieldset>
 					<% end %>
+					<span id="qqLoginBtn"></span>
+					<script type="text/javascript">
+					    QC.Login({
+					       btnId:"qqLoginBtn"	//插入按钮的节点id
+					});
+					</script>
 				</div><!--/span-->
 			</div><!--/row-->
 				</div><!--/fluid-row-->

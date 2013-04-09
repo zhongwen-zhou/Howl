@@ -51,13 +51,15 @@ end
 desc "Deploys the current version to the server."
 task :deploy => :environment do
   deploy do
-    queue! %[echo $PATH]
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
-    queue! %[pwd]
-    queue "bundle install"
+    # queue! %[export PATH=$PATH:/usr/local/rvm/rubies/ruby-2.0.0-p0/bin:/usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/bin]
+    # queue! %[echo $PATH]
+    # queue "export PATH=$PATH:/usr/local/rvm/rubies/ruby-2.0.0-p0/bin:/usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/bin"
+    # queue! %[echo $PATH]
+    # queue! %[/usr/local/rvm/gems/ruby-2.0.0-p0@tony_project/bin/bundle install]
     # invoke :'bundle:install'
     # invoke :'rails:db_migrate'
     # invoke :'rails:assets_precompile'

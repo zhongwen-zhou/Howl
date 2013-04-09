@@ -39,6 +39,9 @@ class SessionsController < ApplicationController
   end
 
   def auth
-    return render :text => 'come on!'
+    omniauth = request.env["omniauth.auth"]  
+    logger.debug "--------------------------------------omniauth"
+    logger.debug "omniauth: #{omniauth.inspect}"
+    return redirect_to root_path
   end
 end

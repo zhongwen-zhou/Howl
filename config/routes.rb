@@ -1,6 +1,6 @@
 require 'resque/server'
 Howl::Application.routes.draw do
-  match "/auth/:provider/callback" => "sessions#auth"
+  match "/auth/:provider/sign_in" => "sessions#auth"
   
   resource :sessions, :only => [:new, :create, :destroy]
 
