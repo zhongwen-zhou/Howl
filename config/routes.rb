@@ -1,6 +1,7 @@
 require 'resque/server'
 Howl::Application.routes.draw do
-
+  match "/auth/:provider/callback" => "sessions#auth"
+  
   resource :sessions, :only => [:new, :create, :destroy]
 
   resources :users, :except => [:index, :destroy]

@@ -37,4 +37,8 @@ class SessionsController < ApplicationController
     session[:current_user_id] = nil
     return redirect_to root_path
   end
+
+  def auth
+    return render :text => 'come on!'
+  end
 end
