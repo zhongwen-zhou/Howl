@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328171732) do
+ActiveRecord::Schema.define(:version => 20130410073720) do
 
   create_table "accounts", :force => true do |t|
     t.float    "sum",                           :null => false
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(:version => 20130328171732) do
     t.boolean  "is_remember",        :default => false
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
+    t.string   "avatar"
   end
 
 end

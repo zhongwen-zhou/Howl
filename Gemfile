@@ -23,6 +23,11 @@ gem 'omniauth-weibo-oauth2'
 
 gem 'omniauth-qq-connect'
 
+
+gem 'carrierwave'
+gem 'mini_magick'
+
+
 # gem 'capistrano'
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
