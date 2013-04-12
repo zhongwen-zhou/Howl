@@ -24,6 +24,7 @@ gem 'omniauth-weibo-oauth2'
 gem 'omniauth-qq-connect'
 
 
+
 gem 'carrierwave'
 gem 'mini_magick'
 
@@ -53,7 +54,9 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'simple_form', "2.0.4"
 gem 'client_side_validations'
+gem "client_side_validations-simple_form"#, "~> 2.0.0"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

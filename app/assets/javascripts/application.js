@@ -18,3 +18,4 @@
 //= require highcharts
 //= require application
 //= require rails.validations
+//= require rails.validations.simple_form

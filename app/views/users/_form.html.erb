@@ -1,44 +1,10 @@
-<%= form_for(@user, :validate => true) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-    <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :email, "电子邮箱" %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :nick_name, "昵称" %><br />
-    <%= f.text_field :nick_name %>
-  </div>
-  <div class="field">
-    <%= f.label :password, "密码" %><br />
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation, "密码确认" %><br />
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <div class="field">
-    <label>我的靓照</label>
-    <%= f.file_field :avatar %>
-    <%= f.hidden_field :avatar_cache %>
-  </div>
-
-  <div class="field">
-    <%= f.label :brief_introduction, "自我介绍" %><br />
-    <%= f.text_area :brief_introduction, :rows => 3 %>
-  </div>
-  <div class="actions">
-    <%= f.submit "保存" %>
-  </div>
+<%= simple_form_for @user, :validate => true, :html => {:multipart => true} do |f| %>
+  <%= f.input :email, label: "电子邮箱", placeholder: "请填入正确的电子邮箱！" %>
+  <%= f.input :nick_name, label: "昵称" %>
+  <%= f.input :password, label: "密码", hint: "密码需要大于6个字符！" %>
+  <%= f.input :password_confirmation, label: "密码确认" %>
+  <%= f.input :avatar, label: "我的靓照" %>
+  <%= f.input :avatar_cache, :as => :hidden %>
+  <%= f.input :brief_introduction, :as => :text, label: "自我介绍", :input_html => {:rows => 5, :cols =>15} %>
+  <%= f.button :submit, :value => "新建" %>
 <% end %>
