@@ -2,8 +2,10 @@
 class Account < ActiveRecord::Base
   attr_accessible :budget_id, :budget_type, :io_type, :owner_id, :owner_type, :remark, :sum, :visable_status, :genre, :user_id, :genre_id, :genre_type, :paid_user_id
   paginates_per 11
-  belongs_to :owner, :polymorphic => :true
-  belongs_to :genre, :polymorphic => :true
+  with_options :polymorphic => :true do |asso|
+    asso.belongs_to :owner
+    asso.belongs_to :genre
+  end
   belongs_to :paid_user, :class_name => :User, :foreign_key => :paid_user_id
   # belongs_to :activity
   validates :sum, :presence => { :message => "金额不能为空！"}

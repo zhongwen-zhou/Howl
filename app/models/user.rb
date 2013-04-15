@@ -11,9 +11,11 @@ class User < ActiveRecord::Base
   validates :email, :uniqueness => { :message => "该邮箱号码已注册，请重新输入！" }
   validates :nick_name, :uniqueness => { :message => "该昵称已注册，请重新输入！" }
   has_many :groups
-  has_many :accounts, :as => :owner, :dependent => :destroy
-  has_many :activities, :as => :owner, :dependent => :destroy
-  has_many :budgets, :as => :owner, :dependent => :destroy
+  with_options :as => :owner, :dependent => :destroy do |asso|
+    asso.has_many :accounts
+    asso.has_many :activities
+    asso.has_many :budgets
+  end
   # has_many :images, :as => :imageable
 
   before_create :generate_encrypt_password
@@ -167,7 +169,6 @@ class User < ActiveRecord::Base
   def is_admin?
     self.permission == ADMIN_PERMISSION
   end
-
 
   # def to_param
   #   self.nick_name

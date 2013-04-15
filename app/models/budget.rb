@@ -2,8 +2,10 @@
 class Budget < ActiveRecord::Base
   attr_accessible :balance_sum, :description, :end_date, :genre_id, :genre_type, :name, :owner_id, :owner_type, :start_date, :status, :total_sum, :user_id, :visable_status, :genre
   validates :name, :total_sum, :presence => { :message => "不能为空！"}
-  belongs_to :owner, :polymorphic => :true
-  belongs_to :genre, :polymorphic => :true
+  with_options :polymorphic => :true do |asso|    
+    asso.belongs_to :owner
+    asso.belongs_to :genre
+  end
   belongs_to :user
   has_many :accounts, :as => :genre, :dependent => :destroy
   scope :un_activity, where("genre_type != 'Activity'")

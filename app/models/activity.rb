@@ -4,8 +4,10 @@ class Activity < ActiveRecord::Base
   validates  :subject, :presence => { :message => "不能为空！"}
   belongs_to :owner, :polymorphic => :true
   belongs_to :user
-  has_many :accounts, :as => :genre, :dependent => :destroy
-  has_many :budgets, :as => :genre, :dependent => :destroy
+  with_options :as => :genre, :dependent => :destroy do |asso|
+    asso.has_many :accounts
+    asso.has_many :budgets
+  end
   has_many :activity_users, :dependent => :destroy
   has_many :users, :through => :activity_users
 
@@ -24,19 +26,11 @@ class Activity < ActiveRecord::Base
   paginates_per 1
 
   def total_budgets_sum
-  	sum = 0
-  	budgets.each do |budget|
-  		sum += budget.total_sum
-  	end
-  	return sum
+    return Budget.sum(:total_sum, :conditions => "genre_id = #{self.id}")
   end
 
   def total_accounts_sum
-  	sum = 0
-  	accounts.each do |account|
-  		sum += account.sum
-  	end
-  	return sum
+    return Budget.sum(:sum, :conditions => "genre_id = #{self.id}")
   end
 
   def balance_sum
