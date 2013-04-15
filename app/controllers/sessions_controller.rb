@@ -2,6 +2,7 @@
 class SessionsController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
   layout 'personal'
+  # http_basic_authenticate_with :name => 'admin', :password => 'tony'
   skip_filter :authorize_login
   skip_filter :require_login
   def index

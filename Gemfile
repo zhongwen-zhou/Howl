@@ -32,6 +32,7 @@ gem 'mini_magick'
 # gem 'capistrano'
 group :test, :development do
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem "rspec-rails", "~> 2.6"
   gem "factory_girl_rails"#, "~> 4.0"  
 end
