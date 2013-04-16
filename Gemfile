@@ -33,7 +33,8 @@ gem 'mini_magick'
 group :test, :development do
   gem 'better_errors'
   gem "rspec-rails", "~> 2.6"
-  gem "factory_girl_rails"#, "~> 4.0"  
+  gem "factory_girl_rails"#, "~> 4.0" 
+  gem 'capybara' 
 end
 group :development do
   gem 'mina', :git => 'git://github.com/nadarei/mina.git'
