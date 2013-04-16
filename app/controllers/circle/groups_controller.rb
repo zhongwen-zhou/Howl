@@ -84,14 +84,14 @@ class Circle::GroupsController < Circle::ApplicationController
     user = User.find(params[:user_id])
     group = Group.find(params[:id])
     user.joined_group(group).update_attribute(:is_admin, true)
-    return redirect_to groups_url
+    return redirect_to circle_group_url(group)
   end
 
   def canel_admin
     user = User.find(params[:user_id])
     group = Group.find(params[:id])
     user.joined_group(group).update_attribute(:is_admin, false)
-    return redirect_to groups_url
+    return redirect_to circle_group_url(group)
   end
   private
 

@@ -1,7 +1,7 @@
 #encoding: utf-8
 class Activity < ActiveRecord::Base
   attr_accessible :address, :description, :end_date, :start_date, :status, :subject, :owner_id, :owner_type, :user_id, :visable_status
-  validates  :subject, :presence => { :message => "不能为空！"}
+  validates  :subject, :address, :start_date, :end_date, :visable_status, :presence => { :message => "不能为空！"}
   belongs_to :owner, :polymorphic => :true
   belongs_to :user
   with_options :as => :genre, :dependent => :destroy do |asso|
@@ -30,7 +30,7 @@ class Activity < ActiveRecord::Base
   end
 
   def total_accounts_sum
-    return Budget.sum(:sum, :conditions => "genre_id = #{self.id}")
+    return Account.sum(:sum, :conditions => "genre_id = #{self.id}")
   end
 
   def balance_sum

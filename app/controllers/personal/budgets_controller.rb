@@ -2,7 +2,7 @@ class Personal::BudgetsController < Personal::ApplicationController
   # GET /budgets
   # GET /budgets.json
   def index
-    @budgets = Budget.all
+    @budgets = @current_user.budgets.page(params[:page]).per(10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,10 +24,7 @@ class Personal::BudgetsController < Personal::ApplicationController
   # GET /budgets/new
   # GET /budgets/new.json
   def new
-    # @group_id = params[:group_id]
-    @activity = Activity.find(params[:activity_id])
-    # @current_user.create_accounts(params[:])
-    # @budget = 
+    @activity = Activity.find(params[:activity_id]) if params.has_key?(:activity_id)
     @budget = Budget.new
     respond_to do |format|
       format.html # new.html.erb
@@ -43,14 +40,15 @@ class Personal::BudgetsController < Personal::ApplicationController
   # POST /budgets
   # POST /budgets.json
   def create
-    @activity = Activity.find(params[:activity_id])
+    @activity = Activity.find(params[:activity_id]) if params.has_key?(:activity_id)
     @budget = @current_user.create_budget(params[:budget], @activity)
-
-    # @budget = Budget.new(params[:budget])
-
     respond_to do |format|
       if @budget.valid?
-        format.html { redirect_to personal_user_activity_path(@current_user,@activity), notice: 'Budget was successfully created.' }
+        if @activity.present?
+          format.html { redirect_to personal_user_activity_path(@current_user,@activity), notice: 'Budget was successfully created.' }
+        else
+          format.html { redirect_to personal_user_budgets_path(@current_user), notice: 'Budget was successfully created.' }
+        end
         format.json { render json: @budget, status: :created, location: @budget }
       else
         format.html { render action: "new" }

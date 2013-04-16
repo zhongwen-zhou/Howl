@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   validates :password_confirmation, :presence => true
   validates :email, :uniqueness => { :message => "该邮箱号码已注册，请重新输入！" }
   validates :nick_name, :uniqueness => { :message => "该昵称已注册，请重新输入！" }
+  validates :email, :email => true
   has_many :groups
   with_options :as => :owner, :dependent => :destroy do |asso|
     asso.has_many :accounts

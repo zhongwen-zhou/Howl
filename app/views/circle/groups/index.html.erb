@@ -101,10 +101,10 @@
                 <% elsif member.is_admin_group?(@group) %>
                   / 管理员
                   <% if @current_user.is_create_group?(@group) %>
-                  <%= link_to(" / 取消管理员", "/groups/#{@group.id}/canel_admin/#{member.id}", :method => :put) unless @current_user.is_create_group?(@group)%>
+                  <%= link_to(" / 取消管理员", "/circle/groups/#{@group.id}/canel_admin/#{member.id}", :method => :put) %>
                   <% end %>
                 <% elsif @current_user.is_create_group?(@group) %>
-                  / <%= link_to "设为管理员", "/groups/#{@group.id}/set_admin/#{member.id}", :method => :put %>
+                  / <%= link_to "设为管理员", "/circle/groups/#{@group.id}/set_admin/#{member.id}", :method => :put %>
                 <% end %>
               </li>
             <% end %>

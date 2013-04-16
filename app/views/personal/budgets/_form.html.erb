@@ -1,50 +1,16 @@
-<%= form_for([:personal,@current_user,@activity,@budget]) do |f| %>
-  <% if @budget.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@budget.errors.count, "error") %> prohibited this budget from being saved:</h2>
-
-      <ul>
-      <% @budget.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name, "预算名" %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :total_sum, "预算总金额" %><br />
-    <%= f.text_field :total_sum %>
-  </div>
+<%= simple_form_for [:personal, @current_user, @activity, @budget], :validate => true do |f| %>
+  <%= f.input :name, label: "预算名", placeholder: "来一个响亮的口号吧！" %>
+  <%= f.input :total_sum, label: "预算总金额" %>
   <% unless @activity.present? %>
-    <div class="field">
-      <%= f.label :start_date, "开始日期" %><br />
-      <%= f.text_field :start_date %>
-    </div>
-    <div class="field">
-      <%= f.label :end_date, "结束日期" %><br />
-      <%= f.text_field :end_date %>
-    </div>
-    <div class="field">
-      <%= f.label :visable_status, "可见状态" %><br />
-      <%= f.number_field :visable_status %>
-    </div>
-  <% else %>
-    <%= f.hidden_field(:start_date,:vaule => @activity.start_date ) %>
-    <%= f.hidden_field(:end_date,:vaule => @activity.end_date ) %>
-    <%= f.hidden_field(:visable_status,:vaule => @activity.visable_status ) %>
+    <%= f.input :visable_status, label: "可见性", :as => :select, :include_blank => "请选择可见性……", collection: Activity::VISABLE_STATUS %>
+    <%= f.input :genre_id, label: "帐务类别", collection: Category.top_categories, :as => :grouped_select, :group_method => :children, :include_blank => "请选择帐务类别……" %>
+    <%= f.input :start_date, label: "开始时间", :as => :string %>
+    <%= f.input :end_date, label: "结束时间", :as => :string %>
   <% end %>
-  <div class="field">
-    <%= f.label :description, "预算描述" %><br />
-    <%= f.text_area :description, :rows => 5, :cols => 20 %>
-  </div>
-  <div class="actions">
-    <%= f.submit "保存" %>
-  </div>
+  <%= f.input :description, :as => :text, label: "预算描述", :input_html => {:rows => 5, :cols =>25} %>
+  <%= f.button :submit, :value => "新建" %>
 <% end %>
+
 <script type="text/javascript">
   $(document).ready(function(){
     $('#budget_start_date').datepicker({ 'format' : 'yyyy-mm-dd'});
