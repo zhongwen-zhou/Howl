@@ -34,3 +34,9 @@
     <%= f.submit "保存" %>
   </div>
 <% end %>
+
+<%= simple_form_for [:admin, @category], :validate => true do |f| %>
+  <%= f.input :name, label: "类别名", placeholder: "请填入合适的类别名！" %>
+  <%= f.input :description, :as => :text, label: "类别描述", :input_html => {:rows => 5, :cols =>15} %>
+  <%= f.button :submit, :value => "新建" %>
+<% end %>

@@ -16,3 +16,5 @@
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.es
 //= require admin
+//= require rails.validations
+//= require rails.validations.simple_form
