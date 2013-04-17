@@ -95,7 +95,7 @@ class Personal::PicturesController < Personal::ApplicationController
   def create
     if params.has_key?(:activity_id)
       @activity = Activity.find(params[:activity_id])
-      @picture = @activity.pictures.create(params[:picture])
+      @picture = @activity.pictures.create(params[:picture].merge({:visable_status => @activity.visable_status}))
       if @picture.valid?
         return redirect_to personal_user_activities_path(@current_user)
       else

@@ -1,7 +1,6 @@
 <%= simple_form_for [:personal, @current_user, @imageable, @picture], :validate => true, :html => {:multipart => true} do |f| %>
-  <%= f.input :visable_status, label: "电子邮箱", placeholder: "请填入正确的电子邮箱！" %>
-  <%= f.input :activity, label: "我的靓照" %>
+  <%= f.input :activity, label: "靓照" %>
   <%= f.input :activity_cache, :as => :hidden %>
-  <%= f.input :description, :as => :text, label: "自我介绍", :input_html => {:rows => 5, :cols =>15} %>
+  <%= f.input :description, :as => :text, label: "图片描述", :input_html => {:rows => 5, :cols =>15} %>
   <%= f.button :submit, :value => "新建" %>
 <% end %>

@@ -1,42 +1,7 @@
-<%= form_for([:admin, @category]) do |f| %>
-  <% if @category.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
-      <ul>
-      <% @category.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name, "类别名" %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :io_type, "收支类型" %><br />
-    <%= select_tag('category[io_type]', "<option value='0'>收入</option><option value='1'>支出</option>".html_safe ) %>
-  </div>  
-  <div class="field">
-    <%= f.label "类别描述" %><br />
-    <%= f.text_area :description, :rows => 3 %>
-  </div>
-  <div class="field">
-    <%= f.label "类别位置" %><br />
-    <%= f.number_field :postion %>
-  </div>
-  <div class="field">
-    <%= f.label "父类别" %><br />
-    <%= select_tag('category[parent_id]', options_from_collection_for_select(@top_categories, "id", "name"),:prompt => "顶级类别") %>
-  </div>
-  <div class="actions">
-    <%= f.submit "保存" %>
-  </div>
-<% end %>
-
 <%= simple_form_for [:admin, @category], :validate => true do |f| %>
   <%= f.input :name, label: "类别名", placeholder: "请填入合适的类别名！" %>
+  <%= f.input :io_type, label: "收支类型", :as => :select, :collection => Category::IO_TYPE, :label_method => :last, :value_method => :first, :include_blank => false %>  
+  <%= f.input :parent_id, label: "父类别", :as => :select, :collection => @top_categories, :label_method => :name, :value_method => :id, :include_blank => "顶级类别" %>  
   <%= f.input :description, :as => :text, label: "类别描述", :input_html => {:rows => 5, :cols =>15} %>
   <%= f.button :submit, :value => "新建" %>
 <% end %>

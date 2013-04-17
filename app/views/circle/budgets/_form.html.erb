@@ -1,54 +1,14 @@
-<%= form_for([:circle, @group, @activity, @budget]) do |f| %>
-  <% if @budget.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@budget.errors.count, "error") %> prohibited this budget from being saved:</h2>
-
-      <ul>
-      <% @budget.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name, "预算名" %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :total_sum, "预算总金额" %><br />
-    <%= f.text_field :total_sum %>
-  </div>
-  <% unless @activity.present? %>
-    <div class="field">
-      <%= f.label :genre_id, "请选择类别" %><br />
-      <%= select_tag('budget[genre_id]', option_groups_from_collection_for_select(Category.outcome.top_categories, :children, :name, :id, :name, 3)) %>
-    </div>  
-    <div class="field">
-      <%= f.label :start_date, "开始日期" %><br />
-      <%= f.text_field :start_date %>
-    </div>
-    <div class="field">
-      <%= f.label :end_date, "结束日期" %><br />
-      <%= f.text_field :end_date %>
-    </div>
-    <div class="field">
-      <%= f.hidden_field :visable_status, :vaule => Budget::VISABLE_STATUS_GROUP %>
-      <%= f.hidden_field :genre_type, :vaule => 'Category' %>
-    </div>
-  <% else %>
-    <%= f.hidden_field(:start_date,:vaule => @activity.start_date ) %>
-    <%= f.hidden_field(:end_date,:vaule => @activity.end_date ) %>
-    <%= f.hidden_field(:visable_status,:vaule => @activity.visable_status ) %>
-  <% end %>
-  <div class="field">
-    <%= f.label :description, "预算描述" %><br />
-    <%= f.text_area :description, :rows => 5, :cols => 20 %>
-  </div>
-  <div class="actions">
-    <%= f.submit "保存" %>
-  </div>
+<%= simple_form_for [:circle, @group, @activity, @budget], :validate => true do |f| %>
+  <%= f.input :name, label: "预算名", placeholder: "来一个响亮的口号吧！" %>
+  <%= f.input :total_sum, label: "预算总金额" %>
+  <%= f.input :visable_status, label: "可见性", :as => :select, :collection => Activity::VISABLE_STATUS, :label_method => :last, :value_method => :first, :include_blank => false %>
+  <%= f.input :genre_id, label: "预算类别", :as => :grouped_select, :collection => Category.top_categories, :group_method => :children, :label_method => :name, :value_method => :id, :include_blank => false %>    
+  <%= f.input :start_date, label: "开始日期", :as => :string %>
+  <%= f.input :end_date, label: "结束日期", :as => :string %>
+  <%= f.input :description, :as => :text, label: "预算描述", :input_html => {:rows => 5, :cols =>25} %>
+  <%= f.button :submit, :value => "保存" %>
 <% end %>
+
 <script type="text/javascript">
   $(document).ready(function(){
     $('#budget_start_date').datepicker({ 'format' : 'yyyy-mm-dd'});

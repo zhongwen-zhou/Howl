@@ -1,9 +1,10 @@
 <%= simple_form_for [:personal, @current_user, @activity, @account], :validate => true do |f| %>
   <%= f.input :sum, label: "金额" %>
   <% unless @activity.present? %>
-    <%= f.input :visable_status, label: "可见性", :as => :select, :include_blank => "请选择可见性……", collection: Activity::VISABLE_STATUS %>
-    <%= f.input :genre_id, label: "帐务类别", collection: Category.top_categories, :as => :grouped_select, :group_method => :children, :include_blank => "请选择帐务类别……" %>
+    <%= f.input :visable_status, label: "可见性", :as => :select, :include_blank => false, collection: Activity::VISABLE_STATUS, :label_method => :last, :value_method => :first %>
+    <%= f.input :genre_id, label: "帐务类别", collection: Category.top_categories, :as => :grouped_select, :group_method => :children, :include_blank => false %>
   <% end %>
+  <%= f.input :io_type, label: "收支类型", :as => :select, :collection => Category::IO_TYPE, :label_method => :last, :value_method => :first, :include_blank => false %>    
   <%= f.input :remark, :as => :text, label: "备注", :input_html => {:rows => 5, :cols =>25} %>
   <%= f.button :submit, :value => "记起" %>
 <% end %>

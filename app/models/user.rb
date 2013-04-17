@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
       account = group.accounts.create(params)
     else
       params = params.merge({:genre => activity, :visable_status => activity.visable_status, :io_type => Account::IO_TYPE_OUTCOME}) if activity.present?
-      params = params.merge({:user_id => self.id})
+      params = params.merge({:user_id => self.id, :paid_user_id => self.id})
       account = self.accounts.create(params)
     end
   end
