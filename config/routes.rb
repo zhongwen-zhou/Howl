@@ -13,7 +13,7 @@ Howl::Application.routes.draw do
         put 'canel_admin/:user_id', :action => :canel_admin
       end
       resources :group_users, :only => [:create] 
-
+      resources :pictures
       resources :budgets
       resources :accounts
       resources :activities do 
@@ -34,6 +34,7 @@ Howl::Application.routes.draw do
       resources :activities do 
         resources :budgets
         resources :accounts
+        resources :pictures
       end
     end
   end

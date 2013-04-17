@@ -30,6 +30,13 @@
                     <%= @activity.end_date.strftime("%Y-%m-%d") %>   <br/>
                     活动状态：<%= Activity::STATUS[@activity.status] %> <br/> 
                     可见状态：<%= Activity::VISABLE_STATUS[@activity.visable_status] %> <br/> 
+                    <%= link_to '图片墙', personal_user_activity_pictures_path(@current_user, @activity) %>
+                    <%= link_to '晒图片', new_personal_user_activity_picture_path(@current_user, @activity) %>
+                    <div>
+                        <% @activity.pictures.each do |picture| %>
+                              <div><%= image_tag(picture.activity.mini) %></div>
+                        <% end %>
+                    </div>
                 </div>
                 <div class="span3">
                   <ul id="activity_tab_<%= @activity.id %>" class="nav nav-tabs">

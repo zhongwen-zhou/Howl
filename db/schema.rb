@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130410073720) do
+ActiveRecord::Schema.define(:version => 20130417022103) do
 
   create_table "accounts", :force => true do |t|
     t.float    "sum",                           :null => false
@@ -112,6 +112,19 @@ ActiveRecord::Schema.define(:version => 20130410073720) do
     t.integer  "visable_status",  :default => 0, :null => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "pictures", :force => true do |t|
+    t.string   "activity"
+    t.string   "group"
+    t.string   "imageable_type"
+    t.integer  "imageable_id"
+    t.integer  "user_id"
+    t.integer  "status"
+    t.text     "description"
+    t.integer  "visable_status"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "simple_captcha_data", :force => true do |t|

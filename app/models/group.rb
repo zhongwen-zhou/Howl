@@ -10,6 +10,7 @@ class Group < ActiveRecord::Base
     asso.has_many :activities
     asso.has_many :budgets
   end
+  has_many :pictures, :as => :imageable
   belongs_to :user
 
   def create_activity(params)

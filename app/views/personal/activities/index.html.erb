@@ -30,6 +30,7 @@
                     <%= @activity.end_date.strftime("%Y-%m-%d") %>   <br/>
                     活动状态：<%= Activity::STATUS[@activity.status] %> <br/> 
                     可见状态：<%= Activity::VISABLE_STATUS[@activity.visable_status] %> <br/> 
+                    
                 </div>
                 <div class="span3">
                   <ul id="activity_tab_<%= @activity.id %>" class="nav nav-tabs">

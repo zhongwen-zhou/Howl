@@ -8,6 +8,9 @@ class Activity < ActiveRecord::Base
     asso.has_many :accounts
     asso.has_many :budgets
   end
+
+  has_many :pictures, :as => :imageable
+
   has_many :activity_users, :dependent => :destroy
   has_many :users, :through => :activity_users
 
