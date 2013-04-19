@@ -175,6 +175,15 @@ class User < ActiveRecord::Base
   #   self.nick_name
   # end
 
+  def self.create_auth(provider, params)
+    Rails.logger.info("===params:#{params}")
+    email = "auth_#{provider}_#{Time.now.to_i.to_s[-3,3]}@howl.me"
+    password = "#{Time.now.to_i.to_s}"
+    user = User.find_by_nick_name(params['nickname']);
+    user = User.create!({:email => "#{email}", :password => password, :password_confirmation => password, :nick_name => params['nickname']}) if user.nil?
+    return user
+  end
+
   private
 
   def generate_encrypt_password

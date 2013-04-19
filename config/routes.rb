@@ -30,7 +30,6 @@ Howl::Application.routes.draw do
       resources :accounts do
         get 'statistics', :on => :collection
       end
-      # resources :groups
       resources :activities do 
         resources :budgets
         resources :accounts
@@ -41,22 +40,9 @@ Howl::Application.routes.draw do
 
 
   namespace :admin do
-    # resources :budgets
-    
-    # resources :accounts do
-      # get 'statistics', :on => :collection
-    # end
-
-    # resources :group_users
-
     resources :categories
-
-    # resources :groups
-
     resources :users
-
     resource :sessions
-
     root :to => "home#index"
   end
   mount Resque::Server.new, :at => "/resque"

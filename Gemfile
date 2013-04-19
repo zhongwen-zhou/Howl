@@ -23,8 +23,6 @@ gem 'omniauth-weibo-oauth2'
 
 gem 'omniauth-qq-connect'
 
-
-
 gem 'carrierwave'
 gem 'mini_magick'
 
