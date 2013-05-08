@@ -1,10 +1,14 @@
 <%= simple_form_for [:circle, @group, @activity, @budget], :validate => true do |f| %>
   <%= f.input :name, label: "预算名", placeholder: "来一个响亮的口号吧！" %>
   <%= f.input :total_sum, label: "预算总金额" %>
-  <%= f.input :visable_status, label: "可见性", :as => :select, :collection => Activity::VISABLE_STATUS, :label_method => :last, :value_method => :first, :include_blank => false %>
-  <%= f.input :genre_id, label: "预算类别", :as => :grouped_select, :collection => Category.top_categories, :group_method => :children, :label_method => :name, :value_method => :id, :include_blank => false %>    
-  <%= f.input :start_date, label: "开始日期", :as => :string %>
-  <%= f.input :end_date, label: "结束日期", :as => :string %>
+  <% if @activity.present? %>
+
+  <% else %>
+    <%= f.input :visable_status, label: "可见性", :as => :select, :collection => Activity::VISABLE_STATUS, :label_method => :last, :value_method => :first, :include_blank => false %>
+    <%= f.input :genre_id, label: "预算类别", :as => :grouped_select, :collection => Category.top_categories, :group_method => :children, :label_method => :name, :value_method => :id, :include_blank => false %>    
+    <%= f.input :start_date, label: "开始日期", :as => :string %>
+    <%= f.input :end_date, label: "结束日期", :as => :string %>
+  <% end %>
   <%= f.input :description, :as => :text, label: "预算描述", :input_html => {:rows => 5, :cols =>25} %>
   <%= f.button :submit, :value => "保存" %>
 <% end %>

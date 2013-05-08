@@ -3,9 +3,7 @@ class Circle::GroupsController < Circle::ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @group = Group.last
-    # @budgets = @group.budgets_by_genre_type('Category')
-    # @genre_type = 'Category'
+    @group = Group.public.last
     @group = Group.where("id < #{params[:current_group_id]}").order('id desc').first if params[:index] == 'prev'
     @group = Group.where("id > #{params[:current_group_id]}").order('id asc').first if params[:index] == 'next'
   end

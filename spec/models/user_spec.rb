@@ -7,7 +7,7 @@ describe User do
   end
 
   it "create Guest User!" do
-	  u = FactoryGirl.build(:guest_user)
+	  u = FactoryGirl.create(:guest_user)
 	  expect(u.is_guest_user?).to eq(true)
   end
 
