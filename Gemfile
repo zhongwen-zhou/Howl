@@ -26,6 +26,7 @@ gem 'omniauth-qq-connect'
 gem 'carrierwave'
 gem 'mini_magick'
 
+gem 'draper', '~> 1.0'
 
 # gem 'capistrano'
 group :test, :development do

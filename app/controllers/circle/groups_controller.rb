@@ -8,6 +8,7 @@ class Circle::GroupsController < Circle::ApplicationController
     # @genre_type = 'Category'
     @group = Group.where("id < #{params[:current_group_id]}").order('id desc').first if params[:index] == 'prev'
     @group = Group.where("id > #{params[:current_group_id]}").order('id asc').first if params[:index] == 'next'
+    @group = @group.decorate
   end
 
   # GET /groups/1

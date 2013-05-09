@@ -84,6 +84,7 @@
 
         </div>
         <div class="span3">
+          <%= @group.created_at %>
           <% unless @current_user.is_create_group?(@group) %> 
             <% if @current_user.joined_group?(@group) %>
               <%= link_to '退出这个圈子!', "/groups/#{@group.id}/group_users/#{@current_user.joined_group(@group).id}", :method => :delete, data: { confirm: '你确定退出这个圈子么？' } %>
