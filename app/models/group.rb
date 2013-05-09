@@ -13,13 +13,16 @@ class Group < ActiveRecord::Base
   has_many :pictures, :as => :imageable
   belongs_to :user
 
+  scope :public, where("visable_status = ?", Activity::VISABLE_STATUS_PUBLIC)
+  scope :private, where("visable_status = ?", Activity::VISABLE_STATUS_PRIVATE)
+
   def create_activity(params)
     activity = self.activities.create(params)
   end
 
   def create_budget(params,user,activity = nil)
     params = params.merge!({:user_id => user.id})
-    params = params.merge!({:genre => activity}) if activity.present?
+    params = params.merge!({:genre => activity, :visable_status => activity.visable_status, :start_date => activity.start_date, :end_date => activity.end_date}) if activity.present?
     budget = self.budgets.create(params)
   end
 

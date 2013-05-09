@@ -13,7 +13,7 @@
         </li>
         <li>
           <%= link_to '图片墙', circle_group_pictures_path(@group) %>
-        </li>        
+        </li>              
       <% elsif @group %>
             <% if @current_user.joined_group?(@group) %>
               <%= link_to '退出这个圈子!', "/groups/#{@group.id}/group_users/#{@current_user.joined_group(@group).id}", :method => :delete, data: { confirm: '你确定退出这个圈子么？' } %>

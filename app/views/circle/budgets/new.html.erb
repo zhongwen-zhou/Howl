@@ -1,7 +1,7 @@
 <% if @activity.nil? %>
-	<h1>为圈子做预算</h1>
+	<h1>为<%= @group.name %> 做预算</h1>
 <% else %>
-	<h1>为活动做预算</h1>
+	<h1>为 <%= @activity.subject %> 做预算</h1>
 <% end %>
 
 <%= render 'form' %>

@@ -1,4 +1,6 @@
+为 <%= @imageable.subject %> 上传图片
 <%= simple_form_for [:personal, @current_user, @imageable, @picture], :validate => true, :html => {:multipart => true} do |f| %>
+  <%= f.input :visable_status, label: "可见性", :as => :select, :collection => Activity::VISABLE_STATUS, :label_method => :last, :value_method => :first, :include_blank => false %>
   <%= f.input :activity, label: "靓照" %>
   <%= f.input :activity_cache, :as => :hidden %>
   <%= f.input :description, :as => :text, label: "图片描述", :input_html => {:rows => 5, :cols =>15} %>
